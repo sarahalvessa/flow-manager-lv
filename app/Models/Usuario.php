@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Usuario extends Model
 {
@@ -16,4 +17,9 @@ class Usuario extends Model
         'email',
         'senha',
     ];
+
+    public function tarefas(): HasMany
+    {
+        return $this->hasMany(Tarefa::class, 'usuario_id', 'usuario_id');
+    }
 }
