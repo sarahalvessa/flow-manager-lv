@@ -19,6 +19,7 @@ class TarefaController extends Controller
         $request->validate([
             'nome' => 'required|string|max:255',
             'usuario_id' => 'required|exists:tb_usuarios,usuario_id',
+            'status_id' => 'required|exists:tb_status,status_id',
             'descricao' => 'required|string',
         ]);
 
@@ -37,6 +38,7 @@ class TarefaController extends Controller
         $request->validate([
             'nome' => 'required|string|max:255',
             'usuario_id' => 'required|exists:tb_usuarios,usuario_id',
+            'status_id' => 'required|exists:tb_status,status_id',
             'descricao' => 'required|string',
         ]);
 
