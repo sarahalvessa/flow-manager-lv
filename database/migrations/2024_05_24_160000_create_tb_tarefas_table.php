@@ -18,6 +18,7 @@ class CreateTbTarefasTable extends Migration
             $table->string('nome');
             $table->foreignId('usuario_id')->constrained('tb_usuarios', 'usuario_id')->onDelete('cascade');
             $table->text('descricao');
+            $table->foreignId('status_id')->constrained('tb_status', 'status_id')->onDelete('cascade');
             $table->timestamps();
         });
     }
