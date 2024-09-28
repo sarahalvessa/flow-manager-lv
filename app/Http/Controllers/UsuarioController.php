@@ -27,8 +27,9 @@ class UsuarioController extends Controller
         return response()->json($usuario, 201);
     }
 
-    public function show(Usuario $usuario): JsonResponse
+    public function show($usuarioId): JsonResponse
     {
+        $usuario = Usuario::with('tarefas')->findOrFail($usuarioId);
         return response()->json($usuario, 200);
     }
 

@@ -15,6 +15,7 @@ class Tarefa extends Model
     protected $fillable = [
         'nome',
         'usuario_id',
+        'status_id',
         'descricao',
     ];
 
