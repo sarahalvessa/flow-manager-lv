@@ -39,4 +39,27 @@ class AuthController extends Controller
             return response()->json(['error' => 'User not authenticated'], 401);
         }
     }
+
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nome' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:tb_usuarios',
+            'password' => 'required|string|min:8',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $user = Usuario::create([
+            'nome' => $request->nome,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return response()->json([
+            'mensagem' => 'Usuário registrado com sucesso'
+        ], 201);
+    }
 }
