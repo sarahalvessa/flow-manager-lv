@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use App\Http\Requests\UsuarioRequest;
 use Illuminate\Http\JsonResponse;
 
 class UsuarioController extends Controller
@@ -14,13 +15,9 @@ class UsuarioController extends Controller
         return response()->json($usuarios, 200);
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(UsuarioRequest $request): JsonResponse
     {
-        $request->validate([
-            'nome' => 'required',
-            'email' => 'required|email|unique:tb_usuarios,email',
-            'senha' => 'required',
-        ]);
+        $request->validate();
 
         $usuario = Usuario::create($request->all());
 
@@ -33,13 +30,9 @@ class UsuarioController extends Controller
         return response()->json($usuario, 200);
     }
 
-    public function update(Request $request, Usuario $usuario): JsonResponse
+    public function update(UsuarioRequest $request, Usuario $usuario): JsonResponse
     {
-        $request->validate([
-            'nome' => 'required',
-            'email' => 'required',
-            'senha' => 'required',
-        ]);
+        $request->validate();
 
         $usuario->update($request->all());
 
