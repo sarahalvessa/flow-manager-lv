@@ -7,8 +7,8 @@ use App\Http\Controllers\TarefaController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\Auth\AuthController;
 
-Route::post('login', [AuthController::class, 'login']);
-Route::post('register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('usuarios', UsuarioController::class);
