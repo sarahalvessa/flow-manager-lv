@@ -32,12 +32,11 @@ class AuthController extends Controller
     {
         $user = Auth::user();
     
-        if ($user) {
-            $user->tokens()->delete();
-            return response()->json(['message' => 'Logged out']);
-        } else {
+        if (!$user) {
             return response()->json(['error' => 'User not authenticated'], 401);
         }
+        $user->tokens()->delete();
+        return response()->json(['message' => 'Logged out']);
     }
 
     public function register(Request $request)
