@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tarefa;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use App\Http\Requests\TarefaRequest;
 
 class TarefaController extends Controller
 {
@@ -14,14 +15,9 @@ class TarefaController extends Controller
         return response()->json($tarefas, 200);
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(TarefaRequest $request): JsonResponse
     {
-        $request->validate([
-            'nome' => 'required|string|max:255',
-            'usuario_id' => 'required|exists:tb_usuarios,usuario_id',
-            'status_id' => 'required|exists:tb_status,status_id',
-            'descricao' => 'required|string',
-        ]);
+        $request->validate();
 
         $tarefa = Tarefa::create($request->all());
 
@@ -33,14 +29,9 @@ class TarefaController extends Controller
         return response()->json($tarefa, 200);
     }
 
-    public function update(Request $request, Tarefa $tarefa): JsonResponse
+    public function update(TarefaRequest $request, Tarefa $tarefa): JsonResponse
     {
-        $request->validate([
-            'nome' => 'required|string|max:255',
-            'usuario_id' => 'required|exists:tb_usuarios,usuario_id',
-            'status_id' => 'required|exists:tb_status,status_id',
-            'descricao' => 'required|string',
-        ]);
+        $request->validate();
 
         $tarefa->update($request->all());
 

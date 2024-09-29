@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\AuthRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -11,7 +12,7 @@ use App\Models\Usuario;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    public function login(AuthRequest $request)
     {
         $credentials = $request->only('email', 'password');
 
@@ -39,13 +40,9 @@ class AuthController extends Controller
         return response()->json(['message' => 'Logged out']);
     }
 
-    public function register(Request $request)
+    public function register(AuthRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'nome' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:tb_usuarios',
-            'password' => 'required|string|min:8',
-        ]);
+        $validator = Validator::make($request->all());
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
