@@ -29,7 +29,7 @@ class AuthController extends Controller
         return response()->json(['message' => 'Invalid credentials'], 401);
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
         $user = Auth::user();
     
@@ -41,19 +41,13 @@ class AuthController extends Controller
     }
 
     public function register(AuthRequest $request)
-    {
-        $validator = Validator::make($request->all());
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
-
+    {    
         $user = Usuario::create([
             'nome' => $request->nome,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
+    
         return response()->json([
             'mensagem' => 'Usuário registrado com sucesso'
         ], 201);
